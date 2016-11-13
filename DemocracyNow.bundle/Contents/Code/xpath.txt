@@ -1,0 +1,8 @@
+Episode description (5): //li[contains(@class, 'news_item') and contains(@class, 'item_with_video')]/div[@class='full_third']/div[@class='two_thirds']/h3/a/text()
+
+Episode image (6): //li[contains(@class, 'news_item') and contains(@class, 'item_with_video')]/div[@class='full_third']/div[@class='one_third']/div[@class='video_holder']/a/img/@src
+
+Episode video (6): //li[contains(@class, 'news_item') and contains(@class, 'item_with_video')]/div[@class='full_third']/div[@class='one_third']/div[@class='video_holder']/a/@href
+
+Headlines video: //li[@class='news_item']/div[@class='full_third']/div[@class='one_third']/div[@class='video_holder']/a/@href
+

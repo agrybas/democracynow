@@ -1,0 +1,55 @@
+
+API_BASE = 'http://playapi.mtgx.tv/v3'
+STREAM_BASE_URL = '/'.join([API_BASE, 'videos', 'stream'])
+
+
+def MetadataObjectForURL(url):
+    """ Returns a Metadata object for the given URL (VideoClipObject, MovieObject, EpisodeObject, 
+    TrackObject, PhotoObject)
+    """
+
+    return VideoClipObject(
+        title='Some Title',
+        summary='Some Summary',
+        thumb=R('icon-movie.png'))
+
+def MediaObjectsForURL(url):
+    """ Returns a list of MediaObjects which represent the video streams available for a specific 
+    video/photo/music
+
+    This function is expected to execute and return very quickly. No HTTP requests made.
+    """
+
+    return [MediaObject(
+                container=Container.MP4,
+                video_codec=VideoCodec.H264,
+                video_resolution=360,
+                video_frame_rate=30,
+                audio_codec=AudioCodec.AAC,
+                audio_channels=2,
+                parts=[PartObject(key=Callback(PlayVideo, url=url))])]
+
+@indirect
+def PlayRTMP(url):    
+    try:
+        return IndirectResponse(VideoClipObject, key=RTMPVideoURL(url))
+    except:
+        raise Ex.MediaNotAvailable
+
+def PlayVideo(url):
+    return Redirect(url)
+
+# @indirect
+# def PlayVideo(url):
+#     try:
+#         return IndirectResponse(VideoClipObject, key=WebVideoURL(url))
+#     except KeyError:
+#         raise Ex.MediaNotAvailable
+
+def NormalizeURL(url):
+    """ Returns a standard normalized URL
+
+    This function is expected to execute and return very quickly. No HTTP requests here.
+    """
+
+    return url
